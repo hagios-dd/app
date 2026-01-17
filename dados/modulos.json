@@ -19,7 +19,7 @@
     "link": "modulo2.json",
     "icone": "fas fa-crown",
     "duracao": "2 semanas",
-    "versiculoChave": "Colossenses 1:18"
+    "versiculoChave": "João 12:32"
   },
   {
     "id": 3,
@@ -54,4 +54,5 @@
     "duracao": "3 semanas",
     "versiculoChave": "Mateus 5:13-16"
   }
+
 ]
