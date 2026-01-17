@@ -1,0 +1,23 @@
+{
+  "name": "Hagios - Discipulado & Devoção",
+  "short_name": "Hagios",
+  "description": "Plataforma de discipulado e crescimento espiritual.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "assets/images/fav.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/fav.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo - Discipulado Contemplativo</title>
+      <link rel="icon" type="image/x-icon" href="assets/images/fav.png">
+    <link rel="manifest" href="manifest.json">
+   <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Biblioteca para PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+   
+    <header class="modulo-header">
+    <div class="header-mobile-controls">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+
+        <!-- Botão menu mobile - fixo topo esquerdo -->
+        <button class="sidebar-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="modulo-title-container">
+        <h1 id="modulo-title">Carregando módulo...</h1>
+        
+        <!-- Player de Áudio Discreto -->
+        <div class="audio-player-mini" id="audio-player-container" style="display:none;">
+            <button class="btn-audio-play" id="btn-audio-play"><i class="fas fa-play"></i></button>
+            <div class="audio-info">
+                <span class="audio-title">Meditação Guiada</span>
+                <div class="audio-progress-bar"><div class="audio-progress-fill" id="audio-progress"></div></div>
+            </div>
+            <audio id="modulo-audio-element"></audio>
+        </div>
+
+        <div class="modulo-meta">
+            <span class="modulo-status" id="modulo-status">Em andamento</span>
+            <button class="btn-mark-complete" id="btn-mark-complete" disabled>
+                <i class="fas fa-lock"></i> Complete o diário e desafio primeiro
+            </button>
+        </div>
+    </div>
+
+    <!-- Remova o theme-toggle antigo daqui (ele vai para dentro da sidebar) -->
+</header>
+
+<!-- Sidebar -->
+<nav class="modulo-sidebar" id="modulo-sidebar">
+    <div class="sidebar-header">
+        <h3><i class="fas fa-list"></i> Conteúdo do Módulo</h3>
+        
+        <!-- Botão fechar (X) dentro do menu -->
+        <button class="sidebar-close" aria-label="Fechar menu">
+            <i class="fas fa-times"></i>
+        </button>
+
+      
+    </div>
+
+    <ul class="sidebar-menu" id="sidebar-menu">
+        <!-- Itens preenchidos por JS -->
+    </ul>
+
+    <div class="sidebar-footer">
+        <h4><i class="fas fa-bookmark"></i> Meu Diário</h4>
+        <a href="#diario" class="diario-link">
+            <i class="fas fa-pen"></i> Minha Jornada do Discípulo
+        </a>
+    </div>
+</nav>
+
+ 
+
+            <!-- Conteúdo principal -->
+            <main class="modulo-content" id="modulo-content">
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Carregando conteúdo...
+                </div>
+            </main>
+
+            <!-- Diário Estilo Keep -->
+            <section class="modulo-diario" id="modulo-diario">
+                <div class="diario-header">
+                    <h2><i class="fas fa-lightbulb"></i> Insights da Jornada</h2>
+                    <div class="diario-header-actions">
+                        <button class="btn btn--ghost" id="btn-baixar-guia" title="Baixar material para impressão">
+                            <i class="fas fa-print"></i> Guia de Estudo
+                        </button>
+                        <button class="btn btn--ghost" id="btn-exportar-pdf" title="Exportar minhas notas em PDF">
+                            <i class="fas fa-file-pdf"></i> Minhas Notas
+                        </button>
+                        <button class="btn btn--primary btn-abrir-avaliacao" id="btn-ir-avaliacao">
+                            <i class="fas fa-check-double"></i> Ir para Avaliação
+                        </button>
+                        <button class="btn-close-diario" id="btn-close-diario">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="keep-container">
+                    <div class="keep-grid" id="keep-notes-grid">
+                        <!-- Card 1 -->
+                        <div class="keep-card" data-id="p1">
+                            <div class="keep-card-pin"><i class="fas fa-thumbtack"></i></div>
+                            <h3 class="keep-card-title">SOBRE DEUS</h3>
+                            <p class="keep-card-sub">O que Ele me mostrou sobre Si mesmo?</p>
+                            <textarea class="keep-textarea" id="diario-pergunta1" placeholder="Toque para escrever..."></textarea>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="keep-card" data-id="p2">
+                            <div class="keep-card-pin"><i class="fas fa-thumbtack"></i></div>
+                            <h3 class="keep-card-title">SOBRE MIM</h3>
+                            <p class="keep-card-sub">O que essa revelação diz sobre quem eu sou?</p>
+                            <textarea class="keep-textarea" id="diario-pergunta2" placeholder="Toque para escrever..."></textarea>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="keep-card" data-id="p3">
+                            <div class="keep-card-pin"><i class="fas fa-thumbtack"></i></div>
+                            <h3 class="keep-card-title">DÚVIDAS & LUTAS</h3>
+                            <p class="keep-card-sub">O que quero levar para o encontro?</p>
+                            <textarea class="keep-textarea" id="diario-pergunta3" placeholder="Toque para escrever..."></textarea>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="keep-card" data-id="p4">
+                            <div class="keep-card-pin"><i class="fas fa-thumbtack"></i></div>
+                            <h3 class="keep-card-title">VITÓRIAS</h3>
+                            <p class="keep-card-sub">Insights e celebrações desta semana.</p>
+                            <textarea class="keep-textarea" id="diario-pergunta4" placeholder="Toque para escrever..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diario-footer-keep">
+                    <span id="last-saved-time">Alterações salvas automaticamente</span>
+                    <button class="btn btn--ghost" id="btn-save-diario-manual"><i class="fas fa-cloud-upload-alt"></i> Sincronizar Agora</button>
+                </div>
+            </section>
+
+            <!-- Nova Seção de Avaliação (Quiz Separado) -->
+            <section class="modulo-avaliacao" id="modulo-avaliacao">
+                <div class="avaliacao-header">
+                    <button class="btn-back-diario" id="btn-voltar-diario">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Diário
+                    </button>
+                    <h2><i class="fas fa-clipboard-check"></i> Avaliação do Módulo</h2>
+                </div>
+
+                <div class="avaliacao-content">
+                    <div class="avaliacao-step">
+                        <div class="step-header">
+                            <span class="step-number">1</span>
+                            <h3>Desafio Prático</h3>
+                        </div>
+                      <div class="desafio-card-modern">
+    <p class="desafio-instrucao" id="texto-desafio">
+        <!-- Será preenchido dinamicamente -->
+    </p>
+    <textarea class="diario-textarea" id="desafio-reflexao" 
+        placeholder="Registre aqui sua reflexão sobre o desafio..."></textarea>
+    <label class="checkbox-container">
+        <input type="checkbox" id="desafio-completado">
+        <span class="checkmark"></span>
+        <span id="texto-checkbox">Eu completei o desafio prático</span>
+    </label>
+</div>
+                    </div>
+
+                    <div class="avaliacao-step">
+                        <div class="step-header">
+                            <span class="step-number">2</span>
+                            <h3>Conhecimento</h3>
+                        </div>
+                        <div class="quiz-container-modern" id="quiz-container">
+                            <div id="quiz-content">
+                                <!-- Preenchido dinamicamente via JSON -->
+                            </div>
+                            <div class="quiz-footer">
+                                <button id="btn-calcular-quiz" class="btn btn--accent">Finalizar Avaliação</button>
+                                <div id="quiz-resultado-container">
+                                    <p id="quiz-resultado" class="fw-bold" style="display:none;"></p>
+                                    <p id="quiz-pontuacao" style="display:none;" data-porcentagem="0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+               <!-- Rodapé de Navegação Simplificado -->
+            <footer class="footer">
+            <p>© 2026 Hagios - Discipulado & Devoção</p>
+           
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+
+    <!-- Proteção de autenticação e Sincronização -->
+    <script type="module">
+        import { auth, onAuthStateChanged, db, doc, getDoc, setDoc, updateDoc } from "./js/firebase-init.js";
+        
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+            } else {
+                // Chamar função de sincronização definida no script.js
+                if (typeof sincronizarComFirebase === 'function') {
+                    sincronizarComFirebase(user, db, doc, getDoc, setDoc);
+                }
+            }
+        });
+
+        // Ouvir evento de salvamento de progresso
+        window.addEventListener('salvarProgresso', async (e) => {
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            const { moduloId } = e.detail;
+            const userRef = doc(db, "usuarios", user.uid);
+            
+            try {
+                const userDoc = await getDoc(userRef);
+                let concluidos = [];
+                if (userDoc.exists()) {
+                    concluidos = userDoc.data().progresso?.modulosConcluidos || [];
+                }
+                
+                if (!concluidos.includes(moduloId)) {
+                    concluidos.push(moduloId);
+                    await updateDoc(userRef, {
+                        "progresso.modulosConcluidos": concluidos,
+                        "ultimoAcesso": new Date().toISOString()
+                    });
+                }
+            } catch (err) {
+                console.error("Erro ao salvar progresso no Firebase:", err);
+            }
+        });
+
+        // Ouvir evento de salvamento de diário
+        window.addEventListener('salvarDiarioFirebase', async (e) => {
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            const { moduloId, dados } = e.detail;
+            const userRef = doc(db, "usuarios", user.uid);
+            
+            try {
+                const updateData = {};
+                updateData[`diarios.modulo_${moduloId}`] = dados;
+                await updateDoc(userRef, updateData);
+            } catch (err) {
+                console.error("Erro ao salvar diário no Firebase:", err);
+            }
+        });
+    </script>
+</body>
+</html>
